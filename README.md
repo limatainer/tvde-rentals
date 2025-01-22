@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TVDE Rentals
 
-## Getting Started
+## Descrição
 
-First, run the development server:
+Este projeto é um sistema de aluguel de veículos para motoristas de TVDE (Transporte de Veículos Descaracterizados a partir de Plataforma Eletrónica). Ele permite que os motoristas aluguem veículos de forma fácil e rápida.
+
+## Funcionalidades
+
+- Cadastro de motoristas
+- Cadastro de veículos
+- Aluguel de veículos
+- Histórico de aluguéis
+- Pagamentos e faturas
+
+## Tecnologias Utilizadas
+
+- NextJS
+- Firebase
+
+## Instalação
+
+1. Clone o repositório:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/seu-usuario/tvde-rentals.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Navegue até o diretório do projeto:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+cd tvde-rentals
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Instale as dependências:
 
-## Learn More
+```bash
+npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Uso
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Inicie o servidor:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm start
+```
 
-## Deploy on Vercel
+2. Acesse o sistema em seu navegador:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+http://localhost:3000
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature:
+
+```bash
+git checkout -b minha-feature
+```
+
+3. Commit suas mudanças:
+
+```bash
+git commit -m 'O que Mudou'
+```
+
+4. Faça um push para a branch:
+
+```bash
+git push origin minha-feature
+```
+
+5. Abra um Pull Request
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
