@@ -1,7 +1,15 @@
+'use client';
+
+import { useState, createContext, useContext } from 'react';
 import { Geist, Geist_Mono } from 'next/font/google';
-import { ThemeProvider } from './theme-provider';
-import { headers } from 'next/headers';
+import { ThemeProvider } from 'next-themes';
 import './globals.css';
+
+// Translations Object
+const translations = {
+  en: { lang: 'en' },
+  pt: { lang: 'pt' },
+};
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -13,52 +21,48 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-export async function generateMetadata() {
-  const headersList = headers();
-  const domain = headersList.get('host');
+// Language Context
+export const LanguageContext = createContext({
+  language: 'en',
+  setLanguage: () => {},
+});
 
-  return {
-    title: 'TVDE Car Rentals | Premium Cars for Ride-sharing Services',
-    description:
-      'Rent premium cars for TVDE services. We offer Tesla, BMW, and Mercedes models for professional drivers.',
-    keywords: [
-      'TVDE rental',
-      'Uber cars',
-      'Bolt cars',
-      'car rental',
-      'ride-sharing',
-    ],
-    openGraph: {
-      title: 'TVDE Car Rentals',
-      description: 'Premium cars for ride-sharing services',
-      url: `https://${domain}`,
-      siteName: 'TVDE Rentals',
-      locale: 'en_US',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: 'TVDE Car Rentals',
-      description: 'Premium cars for ride-sharing services',
-    },
-    viewport: 'width=device-width, initial-scale=1',
-    robots: 'index, follow',
-  };
+// Language Toggle Component
+export function LanguageToggle() {
+  const { language, setLanguage } = useContext(LanguageContext);
+
+  return (
+    <button
+      onClick={() => setLanguage(language === 'en' ? 'pt' : 'en')}
+      className="ml-2 px-2 py-1 bg-emerald-100 dark:bg-emerald-700 rounded text-xs"
+    >
+      {language === 'en' ? 'PT' : 'EN'}
+    </button>
+  );
 }
 
 export default function RootLayout({ children }) {
+  const [language, setLanguage] = useState('en');
+
   return (
     <html
-      lang="en"
+      lang={translations[language].lang}
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
       <head>
-        <link rel="icon" type="image/x-icon" href="/favicon.ico"></link>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <title>TVDE Car Rentals</title>
+        <meta
+          name="description"
+          content="Premium cars for ride-sharing services"
+        />
       </head>
       <body className={geistSans.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+          <LanguageContext.Provider value={{ language, setLanguage }}>
+            {children}
+          </LanguageContext.Provider>
         </ThemeProvider>
       </body>
     </html>
