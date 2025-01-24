@@ -1,35 +1,12 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { LanguageContext } from './layout';
 import Image from 'next/image';
 import { ThemeToggle } from './components/theme-toggle';
 import debounce from 'lodash.debounce';
-
-// Moved cars data outside component
-const cars = [
-  {
-    id: 1,
-    model: 'Kia Niro EV',
-    image: '/kianiro.jpg',
-    status: 'Available',
-    price: '€75/day',
-  },
-  {
-    id: 2,
-    model: 'BMW 5 Series',
-    image: '/kianiro.jpg',
-    status: 'Reserved',
-    price: '€65/day',
-  },
-  {
-    id: 3,
-    model: 'Mercedes E-Class',
-    image: '/kianiro.jpg',
-    status: 'Available',
-    price: '€70/day',
-  },
-];
+import { cars } from './data/cars';
+import { translations } from './data/translations';
 
 function LoadingSpinner() {
   return (
@@ -38,8 +15,6 @@ function LoadingSpinner() {
     </div>
   );
 }
-
-// Separate component for scroll-to-top button
 function ScrollToTopButton({ visible }) {
   const scrollToTop = () => {
     window.scrollTo({
@@ -59,46 +34,6 @@ function ScrollToTopButton({ visible }) {
     </button>
   );
 }
-
-// Translation Content
-const translations = {
-  en: {
-    heroTitle: 'Drive with Confidence',
-    heroSubtitle: 'Premium cars for your TVDE service. Start earning today!',
-    getStarted: 'Chat with us',
-    availableCars: 'Available Cars',
-    contactUs: 'Contact Us',
-    name: 'Name',
-    email: 'Email',
-    message: 'Message',
-    sendMessage: 'Send Message',
-    quickLinks: 'Quick Links',
-    cars: 'Cars',
-    contact: 'Contact',
-    contactInfo: 'Contact Info',
-    footerDescription: 'Premium car rental service for TVDE drivers.',
-  },
-  pt: {
-    heroTitle: 'Conduza com Confiança',
-    heroSubtitle:
-      'Carros premium para o seu serviço TVDE. Comece a ganhar hoje!',
-    getStarted: 'Fale Conosco',
-    availableCars: 'Carros Disponíveis',
-    contactUs: 'Contacte-nos',
-    name: 'Nome',
-    email: 'E-mail',
-    message: 'Mensagem',
-    sendMessage: 'Enviar Mensagem',
-    quickLinks: 'Links Rápidos',
-    cars: 'Carros',
-    contact: 'Contacto',
-    contactInfo: 'Informações de Contacto',
-    footerDescription:
-      'Serviço de aluguer de carros premium para condutores TVDE.',
-  },
-};
-
-// Language Provider Component
 export function LanguageProvider({ children }) {
   const [language, setLanguage] = useState('en');
 
@@ -108,8 +43,6 @@ export function LanguageProvider({ children }) {
     </LanguageContext.Provider>
   );
 }
-
-// Language Toggle Button
 function LanguageToggle() {
   const { language, setLanguage } = useContext(LanguageContext);
 
@@ -132,14 +65,10 @@ export default function Home() {
   const whatsappUrl = `https://wa.me/${whatsappNumber}`;
   useEffect(() => {
     setMounted(true);
-
     const toggleVisible = debounce(() => {
       setVisible(window.scrollY > 300);
     }, 100);
-
     window.addEventListener('scroll', toggleVisible);
-
-    // Optional: Initialize ScrollReveal on client-side only
     const initScrollReveal = async () => {
       const ScrollReveal = (await import('scrollreveal')).default;
       const sr = ScrollReveal({
@@ -150,15 +79,12 @@ export default function Home() {
       });
       sr.reveal('.reveal', { interval: 200 });
     };
-
     initScrollReveal().catch(console.error);
-
     return () => {
       window.removeEventListener('scroll', toggleVisible);
     };
   }, []);
 
-  // Handle initial SSR render
   if (!mounted) {
     return <LoadingSpinner />;
   }
