@@ -51,7 +51,7 @@ function ScrollToTopButton({ visible }) {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-8 right-8 bg-emerald-600 dark:bg-emerald-700 text-white p-4 rounded-full shadow-lg hover:bg-emerald-700 transition-opacity duration-300 ${
+      className={`fixed bottom-8 right-8 bg-yellow-300 dark:bg-yellow-400 text-gray-400 p-4 rounded-full shadow-lg hover:bg-yellow-600 transition-opacity duration-300 ${
         visible ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}
     >
@@ -65,7 +65,7 @@ const translations = {
   en: {
     heroTitle: 'Drive with Confidence',
     heroSubtitle: 'Premium cars for your TVDE service. Start earning today!',
-    getStarted: 'Get Started',
+    getStarted: 'Chat with us',
     availableCars: 'Available Cars',
     contactUs: 'Contact Us',
     name: 'Name',
@@ -82,7 +82,7 @@ const translations = {
     heroTitle: 'Conduza com Confiança',
     heroSubtitle:
       'Carros premium para o seu serviço TVDE. Comece a ganhar hoje!',
-    getStarted: 'Começar',
+    getStarted: 'Fale Conosco',
     availableCars: 'Carros Disponíveis',
     contactUs: 'Contacte-nos',
     name: 'Nome',
@@ -128,7 +128,8 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
   const { language } = useContext(LanguageContext);
   const t = translations[language];
-
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+  const whatsappUrl = `https://wa.me/${whatsappNumber}`;
   useEffect(() => {
     setMounted(true);
 
@@ -219,7 +220,10 @@ export default function Home() {
               <p className="text-base sm:text-xl mb-6 sm:mb-8 px-4 sm:px-0">
                 {t.heroSubtitle}
               </p>
-              <button className="px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base bg-white dark:bg-emerald-300 text-emerald-800 dark:text-emerald-900 rounded-full hover:bg-emerald-100 dark:hover:bg-emerald-200 transition">
+              <button
+                className="px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base bg-white dark:bg-emerald-300 text-emerald-800 dark:text-emerald-900 rounded-full hover:bg-yellow-100 dark:hover:bg-emerald-200 transition"
+                onClick={() => window.open(whatsappUrl, '_blank')}
+              >
                 {t.getStarted}
               </button>
             </div>
